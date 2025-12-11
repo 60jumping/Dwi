@@ -1,0 +1,163 @@
+
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            /* UBAH DI SINI: Gradasi Hitam ke Emas */
+            background: linear-gradient(to bottom, #1a1a1a, #4a3c1d); /* Hitam ke emas gelap */
+            margin: 0;
+            padding: 20px;
+            color: #d4af37; /* Emas muda untuk teks utama */
+            overflow: hidden; /* Penting untuk animasi balon */
+            position: relative; /* Untuk penempatan balon */
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1); /* Putih transparan agar background terlihat */
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); /* Bayangan emas */
+            position: relative; 
+            z-index: 10; /* Konten utama di atas balon */
+        }
+        h1 {
+            color: #d4af37; /* Emas */
+            font-size: 2.5em; 
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+        }
+        p {
+            font-size: 1.3em; 
+            line-height: 1.6;
+            color: #ccc; 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); 
+        }
+        .carousel img {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+        .carousel img.active {
+            display: block;
+        }
+        /* BALON - CSS untuk styling dan animasi */
+        .balloon-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden; 
+            pointer-events: none; 
+            z-index: 1; 
+        }
+        .balloon {
+            position: absolute;
+            bottom: -150px; /* Mulai dari bawah layar */
+            width: 80px; 
+            height: 100px;
+            background: linear-gradient(to top, #ff69b4, #ffb6c1); /* Warna pink default */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            opacity: 0.8;
+            animation: floatUp 10s ease-in forwards infinite; 
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.2); 
+        }
+        .balloon:nth-child(2) {
+            left: 20%;
+            background: linear-gradient(to top, #87ceeb, #add8e6); /* Biru muda */
+            animation-duration: 12s;
+            animation-delay: 2s;
+            transform: scale(0.8);
+            filter: brightness(1.1);
+        }
+        .balloon:nth-child(3) {
+            left: 60%;
+            background: linear-gradient(to top, #90ee90, #c8e6c9); /* Hijau muda */
+            animation-duration: 9s;
+            animation-delay: 4s;
+            transform: scale(0.9);
+            filter: brightness(1.3);
+        }
+         .balloon:nth-child(4) {
+            left: 35%;
+            background: linear-gradient(to top, #ffd700, #ffe66d); /* Emas terang */
+            animation-duration: 11s;
+            animation-delay: 1s;
+            transform: scale(0.7);
+            filter: brightness(1.4);
+        }
+        .balloon:nth-child(5) {
+            left: 75%;
+            background: linear-gradient(to top, #ff8c00, #ffcc80); /* Oranye */
+            animation-duration: 13s;
+            animation-delay: 3s;
+            transform: scale(0.6);
+        }
+        /* Tali balon */
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 0 0 50% 50%;
+        }
+
+        /* Keyframe animasi balon */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(var(--scale, 1));
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg) scale(var(--scale, 1));
+                opacity: 0;
+            }
+        }
+
+        /* EFEK BINTANG BARU */
+        .star {
+            position: absolute;
+            background: white; /* Warna putih */
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 2s infinite ease-in-out; /* Animasi berkedip */
+            z-index: 0; /* Di bawah balon dan konten */
+        }
+        /* Keyframe untuk animasi berkedip */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 1.1em;
+            }
+            .balloon {
+                width: 60px; 
+                height: 80px;
+            }
+            .star {
+                width: 1px; /* Lebih kecil di mobile */
+                height: 1px;
+            }
+        }

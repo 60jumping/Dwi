@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    
+    <audio loop id="myAudio">
+        <source src="happy.mp3" type="audio/mp3"> 
+        Browser Anda tidak mendukung audio.
+    </audio>
+    
+    <div class="balloon-wrapper">
+        <div class="balloon" style="left: 10%;"></div>
+        <div class="balloon" style="left: 40%;"></div>
+        <div class="balloon" style="left: 70%;"></div>
+        <div class="balloon" style="left: 25%;"></div>
+        <div class="balloon" style="left: 85%;"></div>
+    </div>
+
+    <!-- Wrapper untuk bintang (akan diisi oleh JS) -->
+    <div id="stars-container"></div>
+
+    <div class="container">
+        <h1>Selamat Ulang Tahun!</h1>
+       
+        <div class="carousel" id="photoCarousel">
+            <img src="dwi.jpg" alt="Foto Ulang Tahun 1" class="active">
+            <img src="wi2.png" alt="Foto Ulang Tahun 2">
+            <img src="wi3.png" alt="Foto Ulang Tahun 3">
+        </div>
+        
+        <p>Alloo, Happy Birthday yaa Wiii. Semoga segalanya Allah mudahkan, lancar-lancar perkuliahan kitaaa!. Kurang-kurangi tidur dikelas. akur-akur sama mba panii. Hati-hati bawa mobil. Kuliah yang bener.</p>
+        <p>Maaf cuman bisa buat cem nih ja 🙂🫠</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('myAudio');
+            
+            // --- Logika Carousel ---
+            let currentIndex = 0;
+            const images = document.querySelectorAll('.carousel img');
+            const totalImages = images.length;
+
+            function showNextImage() {
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % totalImages;
+                images[currentIndex].classList.add('active');
+            }
+            setInterval(showNextImage, 2000);
+
+            // --- Logika Audio Terbaik (Interaksi Pertama) ---
+            
+            function playAudioAndCleanup() {
+                audio.volume = 1; 
+                audio.play().then(() => {
+                    console.log('Audio diputar setelah interaksi pengguna.');
+                    // Hapus listener setelah berhasil
+                    document.body.removeEventListener('click', playAudioAndCleanup);
+                    document.body.removeEventListener('touchend', playAudioAndCleanup);
+                }).catch(err => {
+                     console.error('Pemutaran audio gagal setelah interaksi:', err);
+                });
+            }
+            
+            // Attach listener untuk interaksi mouse (klik) dan sentuhan (touchend)
+            document.body.addEventListener('click', playAudioAndCleanup);
+            document.body.addEventListener('touchend', playAudioAndCleanup);
+
+            // --- EFEK BINTANG BARU ---
+            const starsContainer = document.getElementById('stars-container');
+            const numStars = 80; // Jumlah bintang (sesuaikan jika terlalu banyak)
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Posisi acak di seluruh layar
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // Ukuran acak (1-3px)
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // Delay animasi acak untuk efek alami
+                star.style.animationDelay = Math.random() * 2 + 's';
+                
+                starsContainer.appendChild(star);
+            }
+        });
+    </script>
+</body>
+</html>
